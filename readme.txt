@@ -19,3 +19,4 @@ git pull origin main
 git add .
 git commit -m "Kurze Beschreibung deiner Änderung"
 git push origin main
+-----------------------------------------------------

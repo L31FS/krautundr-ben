@@ -1,0 +1,4 @@
+Verbindung öffnen:
+    windows + r -> wf.msc -> Eingehende Regeln 
+    -> Datei- und Druckerfreigabe(ECHOanforderung icmpv4)-> aktivieren
+    
