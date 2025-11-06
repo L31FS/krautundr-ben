@@ -1,4 +1,48 @@
 Verbindung öffnen:
     windows + r -> wf.msc -> Eingehende Regeln 
     -> Datei- und Druckerfreigabe(ECHOanforderung icmpv4)-> aktivieren
-    
+
+--> Docker gestartet:
+    docker run --name mysql-server -e MYSQL_ROOT_PASSWORD=Passwort123! -p 3306:3306 -v "C:\dockerdata\mysql:/var/lib/mysql" -d mysql:8.0
+
+    ->Passwort123!
+
+-> wir öffnen port 3306, um damit zu verbinden dann bei heidi philips statische ip eingeben
+
+-> Datenbank läuft. 6.11
+
+-> ERD Diagramm steht auch bereit
+
+-> Jetzt loslegen mit Datenbankaufbau nach unserem Diagramm.
+----------------------------------------------------------------------------
+
+DSGVO GERECHT ZUGRIFFSRECHTVERTEILUNG AN DIE ENTWICKLER:
+
+CREATE USER 'entwickler'@'%' IDENTIFIED BY '123456789';
+GRANT ALL PRIVILEGES ON *.* TO 'entwickler'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+
+------------------
+Ein Zugriffskonzept beschreibt wer auf welche Daten wie zugreifen darf.
+Im DSGVO-Kontext geht’s um das Prinzip der „Vertraulichkeit“ (Art. 32 DSGVO).
+Das Ziel ist:
+
+Nur befugte Personen dürfen auf personenbezogene Daten zugreifen 
+– und auch nur so weit, wie es ihre Aufgabe erfordert („Need-to-know-Prinzip“).
+
+----> Also verbieten wir einfach einsicht auf kunden und partnerdaten bzw nur root
+
+
+
+
+
+
+
+
+
+
+
+
+-------
+stored procedures - wollen wir umsetzen und unsere sql statements in stored procedures speichern.
+
