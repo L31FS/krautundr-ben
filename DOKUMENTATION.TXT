@@ -31,11 +31,16 @@ Nur befugte Personen dürfen auf personenbezogene Daten zugreifen
 – und auch nur so weit, wie es ihre Aufgabe erfordert („Need-to-know-Prinzip“).
 
 ----> Also verbieten wir einfach einsicht auf kunden und partnerdaten bzw nur root
+NOCH NICHT UMGESETZT NUR ROOT AUF ADRESS UND KUNDENDATEN; REST AUF REST
 
 
+vertraulichkeit/verfügbarkeit/iintegrität
 
+integrität: daten können nicht unbemerkt verändert oder gelöscht werden
 
-
+implementieren:
+ursprünglich adressen nicht ausgelagert - expemplarisch eine querry machen , die eine 
+ausgangsstruktur der adressen zb auslagert.
 
 
 
