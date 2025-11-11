@@ -1,0 +1,161 @@
+-- Adressen
+INSERT INTO Adresse (Strasse, PLZ, Stadt, Land) VALUES
+  ('Beispielweg 1', '22111', 'Hamburg', 'Deutschland'),
+  ('Musterstrasse 7', '22222', 'Hamburg', 'Deutschland'),
+  ('Hauptstr. 99', '22333', 'Hamburg', 'Deutschland'),
+  ('Parkallee 5', '22444', 'Hamburg', 'Deutschland'),
+  ('Bauernhofweg 12', '22555', 'Hamburg', 'Deutschland');
+
+-- Kunden
+INSERT INTO Kunde (Name, Datenschutz, Adresse_ID) VALUES
+  ('Max Mustermann', TRUE, 1),
+  ('Anna Beispiel', FALSE, 2),
+  ('Helene Bauer', TRUE, 4),
+  ('Finn Frisch', TRUE, 5);
+
+-- Bestellungen
+INSERT INTO Bestellung (Kunde_ID, Datum, Gesamtpreis) VALUES
+  (1, '2025-11-11', 25.99),
+  (2, '2025-11-10', 17.49),
+  (3, '2025-10-27', 32.80),
+  (4, '2025-11-09', 29.99);
+
+-- Zutaten
+INSERT INTO Zutat (Name, Einheit, Preis) VALUES
+  ('Bio-Möhre', 'kg', 2.50),
+  ('Kartoffel', 'kg', 1.70),
+  ('Tofu', 'Stück', 3.10),
+  ('Sellerie', 'Stück', 1.90),
+  ('Kürbis', 'kg', 3.30),
+  ('Tomate', 'kg', 2.20),
+  ('Rote Bete', 'kg', 2.90);
+
+-- Bestellung_Zutat
+INSERT INTO Bestellung_Zutat (Bestell_ID, Zutat_ID, Menge, Einheit, Einzelpreis) VALUES
+  (1, 1, 2.00, 'kg', 2.50),
+  (1, 2, 1.50, 'kg', 1.70),
+  (1, 4, 1.00, 'Stück', 1.90),
+  (2, 3, 1.00, 'Stück', 3.10),
+  (2, 5, 0.75, 'kg', 3.30),
+  (3, 2, 3.00, 'kg', 1.70),
+  (3, 6, 2.50, 'kg', 2.20),
+  (3, 7, 1.00, 'kg', 2.90),
+  (4, 1, 1.50, 'kg', 2.50),
+  (4, 5, 2.00, 'kg', 3.30);
+
+-- Lieferanten
+INSERT INTO Lieferant (Name, Kontakt, Adresse_ID) VALUES
+  ('Bioland Hof', 'info@bioland-hof.de', 3),
+  ('Marktfrisch', 'kontakt@marktfrisch.de', 2),
+  ('Regionalhof', 'info@regionalhof.de', 5);
+
+-- Lieferant_Zutat
+INSERT INTO Lieferant_Zutat (Lieferant_ID, Zutat_ID, Einkaufspreis, Lieferzeit_days) VALUES
+  (1, 1, 2.00, 2),
+  (1, 2, 1.50, 1),
+  (2, 3, 2.90, 3),
+  (2, 4, 1.75, 4),
+  (3, 5, 2.80, 2),
+  (3, 6, 1.70, 3),
+  (1, 7, 2.50, 1);
+
+-- Nährwerte
+INSERT INTO Naehrwerte (Zutat_ID, Kalorien, Protein, Kohlenhydrate, Fett, Fett_ungesaettigt, Zucker, Ballaststoffe, Salz) VALUES
+  (1, 40, 0.6, 7.3, 0.2, 0.18, 4.7, 2.5, 0.02),
+  (2, 70, 2.0, 15.8, 0.1, 0.09, 0.9, 2.2, 0.01),
+  (3, 85, 8.5, 2.2, 5.0, 4.2, 1.7, 1.4, 0.14),
+  (4, 72, 1.3, 15.0, 0.3, 0.22, 2.2, 2.1, 0.03),
+  (5, 63, 1.0, 15.9, 0.1, 0.07, 2.6, 2.3, 0.05),
+  (6, 18, 0.9, 3.9, 0.2, 0.14, 2.6, 1.1, 0.01),
+  (7, 43, 1.5, 9.6, 0.2, 0.14, 3.8, 2.8, 0.03);
+
+-- Rezepte
+INSERT INTO Rezept (Name, Beschreibung, Kalorien_SUM) VALUES
+  ('Veganes Curry', 'Kokos, Tofu, Möhre & Kartoffel', 280),
+  ('Kartoffelsuppe', 'Leicht & gesund mit Möhre', 110),
+  ('Kürbis-Bete-Salat', 'Kürbis, Rote Bete, Tomate, Sellerie', 220),
+  ('Schnelle Gemüsepfanne', 'Alles was da ist', 350);
+
+-- Rezept_Zutat
+INSERT INTO Rezept_Zutat (Rezept_ID, Zutat_ID, Menge, Einheit, Reihenfolge) VALUES
+  (1, 1, 1.00, 'kg', 1),
+  (1, 3, 1.00, 'Stück', 2),
+  (1, 2, 0.50, 'kg', 3),
+  (2, 2, 1.50, 'kg', 1),
+  (2, 1, 0.50, 'kg', 2),
+  (3, 5, 0.75, 'kg', 1),
+  (3, 7, 0.60, 'kg', 2),
+  (3, 6, 1.00, 'kg', 3),
+  (3, 4, 1.00, 'Stück', 4),
+  (4, 1, 1.00, 'kg', 1),
+  (4, 2, 1.00, 'kg', 2),
+  (4, 6, 0.50, 'kg', 3);
+
+-- Kategorien
+INSERT INTO Kategorie (Name, Beschreibung) VALUES
+  ('Vegan', 'Ohne tierische Bestandteile'),
+  ('Vegetarisch', 'Ohne Fleisch'),
+  ('Low Carb', 'Wenig Kohlenhydrate'),
+  ('Glutenfrei', 'Ohne Gluten');
+
+-- Rezept_Kategorie
+INSERT INTO Rezept_Kategorie (Rezept_ID, Kategorie_ID) VALUES
+  (1, 1),
+  (2, 2),
+  (3, 1),
+  (3, 3),
+  (4, 2),
+  (4, 4);
+
+-- Allergene
+INSERT INTO Allergen (Name, Beschreibung) VALUES
+  ('Soja', 'Allergie gegen Sojabohne'),
+  ('Sellerie', 'Unverträglichkeit gegenüber Sellerie'),
+  ('Gluten', 'Unverträglichkeit gegenüber Gluten');
+
+-- Zutat_Allergen
+INSERT INTO Zutat_Allergen (Zutat_ID, Allergen_ID, Hinweis) VALUES
+  (3, 1, 'Enthält Soja'),
+  (1, 2, 'Kann Spuren von Sellerie enthalten'),
+  (2, 3, 'Enthält Gluten'),
+  (4, 2, 'Enthält Sellerie');
+
+-- Adresse_Kunde
+INSERT INTO Adresse_Kunde (Kunde_ID, Adresse_ID, Typ) VALUES
+  (1, 1, 'Lieferadresse'),
+  (1, 2, 'Rechnungsadresse'),
+  (2, 2, 'Lieferadresse'),
+  (3, 4, 'Lieferadresse'),
+  (4, 5, 'Lieferadresse');
+
+-- Rollen
+INSERT INTO Rolle (Name, Beschreibung) VALUES
+  ('Admin', 'Systemadministrator'),
+  ('Entwickler', 'Sieht fast alles außer Kundendaten'),
+  ('Rezeptmanager', 'Bearbeitet Rezepte'),
+  ('Einkauf', 'Bestellt und prüft Lieferanten');
+
+-- Mitarbeiter
+INSERT INTO Mitarbeiter (Vorname, Nachname, Benutzername, Passwort, Aktiv) VALUES
+  ('Max', 'Mustermann', 'adminuser', 'pwdhash1', TRUE),
+  ('Anna', 'Beispiel', 'devuser', 'pwdhash2', TRUE),
+  ('Ben', 'Koch', 'rezmanager', 'pwdhash3', TRUE),
+  ('Susi', 'Sorglos', 'einkauf', 'pwdhash4', TRUE),
+  ('Klara', 'Control', 'kontrolleur', 'pwdhash5', FALSE);
+
+-- Mitarbeiter_Rolle
+INSERT INTO Mitarbeiter_Rolle (Mitarbeiter_ID, Rolle_ID) VALUES
+  (1, 1),
+  (2, 2),
+  (3, 3),
+  (4, 4),
+  (5, 2);
+
+-- Bestellung_Rezept
+INSERT INTO Bestellung_Rezept (Bestell_ID, Rezept_ID, Menge) VALUES
+  (1, 1, 1.00),
+  (2, 2, 2.50),
+  (3, 3, 2.00),
+  (4, 4, 1.00),
+  (1, 3, 0.5),
+  (2, 4, 1.0);
