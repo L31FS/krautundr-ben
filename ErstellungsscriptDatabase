@@ -1,0 +1,161 @@
+CREATE TABLE Adresse (
+  Adresse_ID INT PRIMARY KEY AUTO_INCREMENT,
+  Strasse VARCHAR(255),
+  PLZ VARCHAR(20),
+  Stadt VARCHAR(100),
+  Land VARCHAR(100)
+);
+
+CREATE TABLE Kunde (
+  Kunde_ID INT PRIMARY KEY AUTO_INCREMENT,
+  Name VARCHAR(255) NOT NULL,
+  Datenschutz BOOLEAN NOT NULL,
+  Adresse_ID INT,
+  FOREIGN KEY (Adresse_ID) REFERENCES Adresse(Adresse_ID)
+);
+
+CREATE TABLE Bestellung (
+  Bestell_ID INT PRIMARY KEY AUTO_INCREMENT,
+  Kunde_ID INT NOT NULL,
+  Datum DATE,
+  Gesamtpreis DECIMAL(10,2),
+  FOREIGN KEY (Kunde_ID) REFERENCES Kunde(Kunde_ID)
+);
+
+CREATE TABLE Zutat (
+  Zutat_ID INT PRIMARY KEY AUTO_INCREMENT,
+  Name VARCHAR(255) NOT NULL,
+  Einheit VARCHAR(50),
+  Preis DECIMAL(10,2)
+);
+
+CREATE TABLE Bestellung_Zutat (
+  Bestellung_Position_ID INT PRIMARY KEY AUTO_INCREMENT,
+  Bestell_ID INT NOT NULL,
+  Zutat_ID INT NOT NULL,
+  Menge DECIMAL(12,4),
+  Einheit VARCHAR(50),
+  Einzelpreis DECIMAL(10,2),
+  FOREIGN KEY (Bestell_ID) REFERENCES Bestellung(Bestell_ID),
+  FOREIGN KEY (Zutat_ID) REFERENCES Zutat(Zutat_ID)
+);
+
+CREATE TABLE Lieferant (
+  Lieferant_ID INT PRIMARY KEY AUTO_INCREMENT,
+  Name VARCHAR(255) NOT NULL,
+  Kontakt VARCHAR(255),
+  Adresse_ID INT,
+  FOREIGN KEY (Adresse_ID) REFERENCES Adresse(Adresse_ID)
+);
+
+CREATE TABLE Lieferant_Zutat (
+  Liefert_ID INT PRIMARY KEY AUTO_INCREMENT,
+  Lieferant_ID INT NOT NULL,
+  Zutat_ID INT NOT NULL,
+  Einkaufspreis DECIMAL(10,2),
+  Lieferzeit_days INT,
+  FOREIGN KEY (Lieferant_ID) REFERENCES Lieferant(Lieferant_ID),
+  FOREIGN KEY (Zutat_ID) REFERENCES Zutat(Zutat_ID)
+);
+
+CREATE TABLE Naehrwerte (
+  Naehrwerte_ID INT PRIMARY KEY AUTO_INCREMENT,
+  Zutat_ID INT NOT NULL UNIQUE,
+  Kalorien INT,
+  Protein DECIMAL(6,2),
+  Kohlenhydrate DECIMAL(6,2),
+  Fett DECIMAL(6,2),
+  Fett_ungesaettigt DECIMAL(6,2),
+  Zucker DECIMAL(6,2),
+  Ballaststoffe DECIMAL(6,2),
+  Salz DECIMAL(6,2),
+  FOREIGN KEY (Zutat_ID) REFERENCES Zutat(Zutat_ID)
+);
+
+CREATE TABLE Rezept (
+  Rezept_ID INT PRIMARY KEY AUTO_INCREMENT,
+  Name VARCHAR(255) NOT NULL,
+  Beschreibung TEXT,
+  Kalorien_SUM INT
+);
+
+CREATE TABLE Rezept_Zutat (
+  Rezept_Zutat_ID INT PRIMARY KEY AUTO_INCREMENT,
+  Rezept_ID INT NOT NULL,
+  Zutat_ID INT NOT NULL,
+  Menge DECIMAL(12,4),
+  Einheit VARCHAR(50),
+  Reihenfolge INT,
+  FOREIGN KEY (Rezept_ID) REFERENCES Rezept(Rezept_ID),
+  FOREIGN KEY (Zutat_ID) REFERENCES Zutat(Zutat_ID)
+);
+
+CREATE TABLE Kategorie (
+  Kategorie_ID INT PRIMARY KEY AUTO_INCREMENT,
+  Name VARCHAR(100),
+  Beschreibung TEXT
+);
+
+CREATE TABLE Rezept_Kategorie (
+  Rezept_Kategorie_ID INT PRIMARY KEY AUTO_INCREMENT,
+  Rezept_ID INT NOT NULL,
+  Kategorie_ID INT NOT NULL,
+  FOREIGN KEY (Rezept_ID) REFERENCES Rezept(Rezept_ID),
+  FOREIGN KEY (Kategorie_ID) REFERENCES Kategorie(Kategorie_ID)
+);
+
+CREATE TABLE Allergen (
+  Allergen_ID INT PRIMARY KEY AUTO_INCREMENT,
+  Name VARCHAR(100),
+  Beschreibung TEXT
+);
+
+CREATE TABLE Zutat_Allergen (
+  Zutat_Allergen_ID INT PRIMARY KEY AUTO_INCREMENT,
+  Zutat_ID INT NOT NULL,
+  Allergen_ID INT NOT NULL,
+  Hinweis VARCHAR(255),
+  FOREIGN KEY (Zutat_ID) REFERENCES Zutat(Zutat_ID),
+  FOREIGN KEY (Allergen_ID) REFERENCES Allergen(Allergen_ID)
+);
+
+CREATE TABLE Adresse_Kunde (
+  Kunde_Besitzt_ID INT PRIMARY KEY AUTO_INCREMENT,
+  Kunde_ID INT NOT NULL,
+  Adresse_ID INT NOT NULL,
+  Typ ENUM('Lieferadresse','Rechnungsadresse'),
+  FOREIGN KEY (Kunde_ID) REFERENCES Kunde(Kunde_ID),
+  FOREIGN KEY (Adresse_ID) REFERENCES Adresse(Adresse_ID)
+);
+
+CREATE TABLE Rolle (
+  Rolle_ID INT PRIMARY KEY AUTO_INCREMENT,
+  Name VARCHAR(50) UNIQUE NOT NULL,
+  Beschreibung TEXT
+);
+
+CREATE TABLE Mitarbeiter (
+  Mitarbeiter_ID INT PRIMARY KEY AUTO_INCREMENT,
+  Vorname VARCHAR(100),
+  Nachname VARCHAR(100),
+  Benutzername VARCHAR(100) UNIQUE NOT NULL,
+  Passwort VARCHAR(255) NOT NULL,
+  Aktiv BOOLEAN DEFAULT TRUE
+);
+
+CREATE TABLE Mitarbeiter_Rolle (
+  Mitarbeiter_Rolle_ID INT PRIMARY KEY AUTO_INCREMENT,
+  Mitarbeiter_ID INT NOT NULL,
+  Rolle_ID INT NOT NULL,
+  FOREIGN KEY (Mitarbeiter_ID) REFERENCES Mitarbeiter(Mitarbeiter_ID),
+  FOREIGN KEY (Rolle_ID) REFERENCES Rolle(Rolle_ID)
+);
+
+CREATE TABLE Bestellung_Rezept (
+  Bestellung_Rezept_ID INT PRIMARY KEY AUTO_INCREMENT,
+  Bestell_ID INT NOT NULL,
+  Rezept_ID INT NOT NULL,
+  Menge DECIMAL(5,2) NOT NULL CHECK (Menge > 0),
+  FOREIGN KEY (Bestell_ID) REFERENCES Bestellung(Bestell_ID),
+  FOREIGN KEY (Rezept_ID) REFERENCES Rezept(Rezept_ID)
+);
