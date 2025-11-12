@@ -110,6 +110,7 @@ DELIMITER ;
 
 
 --8 Kombinierter Filter (weniger als 5 Zutaten UND bestimmte Kategorie)
+
 DELIMITER //
 CREATE PROCEDURE GetRezepteMitFilter(IN p_KategorieName VARCHAR(100))
 BEGIN
@@ -118,8 +119,9 @@ BEGIN
   INNER JOIN Rezept_Zutat rz ON r.Rezept_ID = rz.Rezept_ID
   INNER JOIN Rezept_Kategorie rk ON r.Rezept_ID = rk.Rezept_ID
   INNER JOIN Kategorie k ON rk.Kategorie_ID = k.Kategorie_ID
+  WHERE k.Name = p_KategorieName
   GROUP BY r.Rezept_ID
-  HAVING COUNT(rz.Zutat_ID) < 5 AND k.Name = p_KategorieName;
+  HAVING COUNT(rz.Zutat_ID) < 5;
 END //
 DELIMITER ;
 --Deckt ab: „Kombinierte Filter“
