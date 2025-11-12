@@ -1,4 +1,4 @@
--- 1️⃣ Zutaten eines Rezepts abrufen
+--1 Zutaten eines Rezepts abrufen
 DELIMITER //
 CREATE PROCEDURE GetZutatenEinesRezepts(IN p_RezeptID INT)
 BEGIN
@@ -12,11 +12,11 @@ BEGIN
   WHERE r.Rezept_ID = p_RezeptID;
 END //
 DELIMITER ;
--- ✔️ Deckt ab: „Zutaten eines Rezepts abrufen“
--- ✔️ Verwendet INNER JOIN
+--„Zutaten eines Rezepts abrufen“
+--Verwendet INNER JOIN
 
 
--- 2️⃣ Rezepte mit bestimmter Zutat finden
+--2 Rezepte mit bestimmter Zutat finden
 DELIMITER //
 CREATE PROCEDURE GetRezepteMitZutat(IN p_ZutatName VARCHAR(255))
 BEGIN
@@ -27,11 +27,11 @@ BEGIN
   WHERE z.Name = p_ZutatName;
 END //
 DELIMITER ;
--- ✔️ Deckt ab: „Rezepte mit bestimmter Zutat finden“
--- ✔️ Verwendet INNER JOIN und DISTINCT
+--Deckt ab: „Rezepte mit bestimmter Zutat finden“
+--Verwendet INNER JOIN und DISTINCT
 
 
--- 3️⃣ Anzahl Rezepte nach Ernährungskategorie
+--3 Anzahl Rezepte nach Ernährungskategorie
 DELIMITER //
 CREATE PROCEDURE CountRezepteNachKategorie()
 BEGIN
@@ -43,11 +43,11 @@ BEGIN
   GROUP BY k.Name;
 END //
 DELIMITER ;
--- ✔️ Deckt ab: „Anzahl Rezepte nach Ernährungskategorie“
--- ✔️ Verwendet LEFT JOIN + Aggregatfunktion COUNT()
+-- Deckt ab: „Anzahl Rezepte nach Ernährungskategorie“
+-- Verwendet LEFT JOIN + Aggregatfunktion COUNT()
 
 
--- 4️⃣ Durchschnittliche Nährwerte pro Bestellung eines Kunden
+--4 Durchschnittliche Nährwerte pro Bestellung eines Kunden
 DELIMITER //
 CREATE PROCEDURE AvgNaehrwerteProBestellung(IN p_KundeID INT)
 BEGIN
@@ -64,11 +64,11 @@ BEGIN
   GROUP BY b.Bestell_ID;
 END //
 DELIMITER ;
--- ✔️ Deckt ab: „Durchschnittliche Nährwerte berechnen“
--- ✔️ Verwendet Aggregatfunktionen (AVG), mehrere INNER JOINs
+-- Deckt ab: „Durchschnittliche Nährwerte berechnen“
+-- Verwendet Aggregatfunktionen (AVG), mehrere INNER JOINs
 
 
--- 5️⃣ Unverknüpfte Zutaten identifizieren
+--5 Unverknüpfte Zutaten identifizieren
 DELIMITER //
 CREATE PROCEDURE GetUnverknuepfteZutaten()
 BEGIN
@@ -78,11 +78,11 @@ BEGIN
   WHERE rz.Zutat_ID IS NULL;
 END //
 DELIMITER ;
--- ✔️ Deckt ab: „Unverknüpfte Zutaten identifizieren“
--- ✔️ Verwendet LEFT JOIN mit IS NULL
+-- Deckt ab: „Unverknüpfte Zutaten identifizieren“
+-- Verwendet LEFT JOIN mit IS NULL
 
 
--- 6️⃣ Rezepte nach maximaler Kalorienmenge
+--6  Rezepte nach maximaler Kalorienmenge
 DELIMITER //
 CREATE PROCEDURE GetRezepteNachKalorien(IN p_MaxKalorien INT)
 BEGIN
@@ -91,10 +91,10 @@ BEGIN
   WHERE r.Kalorien_SUM <= p_MaxKalorien;
 END //
 DELIMITER ;
--- ✔️ Deckt ab: „Rezepte nach Kalorienmenge filtern“
+-- Deckt ab: „Rezepte nach Kalorienmenge filtern“
 
 
--- 7️⃣ Rezepte mit weniger als fünf Zutaten
+--7 Rezepte mit weniger als fünf Zutaten
 DELIMITER //
 CREATE PROCEDURE GetRezepteMitWenigenZutaten()
 BEGIN
@@ -105,11 +105,11 @@ BEGIN
   HAVING COUNT(rz.Zutat_ID) < 5;
 END //
 DELIMITER ;
--- ✔️ Deckt ab: „Rezepte mit wenigen Zutaten finden“
--- ✔️ Verwendet Aggregatfunktion COUNT() + HAVING
+--Deckt ab: „Rezepte mit wenigen Zutaten finden“
+--Verwendet Aggregatfunktion COUNT() + HAVING
 
 
--- 8️⃣ Kombinierter Filter (weniger als 5 Zutaten UND bestimmte Kategorie)
+--8 Kombinierter Filter (weniger als 5 Zutaten UND bestimmte Kategorie)
 DELIMITER //
 CREATE PROCEDURE GetRezepteMitFilter(IN p_KategorieName VARCHAR(100))
 BEGIN
@@ -122,11 +122,11 @@ BEGIN
   HAVING COUNT(rz.Zutat_ID) < 5 AND k.Name = p_KategorieName;
 END //
 DELIMITER ;
--- ✔️ Deckt ab: „Kombinierte Filter“
--- ✔️ Verwendet GROUP BY + HAVING + INNER JOIN
+--Deckt ab: „Kombinierte Filter“
+--Verwendet GROUP BY + HAVING + INNER JOIN
 
 
--- 🔟 Zusatz-Abfragen (eigene Ideen)
+--10 Zusatz-Abfragen (eigene Ideen)
 -- a) Top 5 meistgenutzten Zutaten in Rezepten
 DELIMITER //
 CREATE PROCEDURE GetTopZutaten()
@@ -164,7 +164,7 @@ BEGIN
   ORDER BY Anzahl_Bestellungen DESC;
 END //
 DELIMITER ;
--- ✔️ Deckt ab: „Eigenständige Abfragen“ + „komplexe SQL-Elemente“
+-- Deckt ab: „Eigenständige Abfragen“ + „komplexe SQL-Elemente“
 
 
 
